@@ -8,6 +8,7 @@ and may not be redistributed without written permission.*/
 #include <string.h>
 
 #include "SDL_Init.h"
+#include "../rapidjson/document.h"
 
 
 

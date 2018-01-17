@@ -12,7 +12,7 @@ public:
 
     Team(std::string name, std::string category);
     Team(std::string name, std::string category, std::string email);
-    ~Team();
+    ~Team()=default;
 
     std::string getName();
     void setName(std::string newName);

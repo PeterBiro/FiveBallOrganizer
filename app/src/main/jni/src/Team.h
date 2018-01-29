@@ -11,7 +11,9 @@ class Team {
 public:
 
     Team(std::string name, std::string category);
+    //Team(char* nm, char* cat);
     Team(std::string name, std::string category, std::string email);
+    //Team(char* nm, char* cat, char* mail);
     ~Team()=default;
 
     std::string getName();

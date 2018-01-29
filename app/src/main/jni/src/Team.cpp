@@ -1,18 +1,21 @@
 //
 // Created by birop on 17/01/2018.
 //
-
 #include "Team.h"
+#include "SDL.h"
 
 
 Team::Team(std::string nm, std::string cat) {
-    Team::Team(nm, cat, NULL);
+    SDL_Log("first constructor is called\n");
+    Team(nm, cat, "");
 }
 
 Team::Team(std::string nm, std::string cat, std::string mail) {
+    SDL_Log("second constructor is called\n");
     name = nm;
     category = cat;
     email = mail;
+    SDL_Log("Team created with name: %s , category: %s, e-mail: %s\n", name.c_str(), category.c_str(), email.c_str());
 }
 
 std::string Team::getName() {

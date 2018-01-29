@@ -3,11 +3,10 @@ and may not be redistributed without written permission.*/
 
 //Using SDL, standard IO, and, strings
 #include <SDL.h>
-#include <stdio.h>
-#include <string>
-#include <string.h>
+#include "JsonInterface.h"
 
 #include "SDL_Init.h"
+
 
 
 
@@ -22,6 +21,9 @@ int main( int argc, char* args[] )
     {
        SDL_Log("SDL started\n");
     }
+
+    JsonInterface myJSON_Parser;
+    myJSON_Parser.LoadTeams("json/sampleteams.json");
     SDL_Delay(3000);
     //Free resources and close SDL
     close();

@@ -4,17 +4,14 @@
 
 #include "Result.h"
 
-Result::Result() {
-    state = NORMAL;
-}
 
 Result::Result(int a, int b) {
-    Result();
+    state = NORMAL;
     scores.push_back(std::pair(a,b));
 }
 
-void Result::changeState(state_enum newState) {
-    state = newState;
+Result::Result(state_enum state){
+    this->state = state;
 }
 
 state_enum Result::getState() {

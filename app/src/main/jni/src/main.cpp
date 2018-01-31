@@ -4,6 +4,7 @@ and may not be redistributed without written permission.*/
 //Using SDL, SDL_image, standard IO, and, strings
 #include <SDL.h>
 #include <SDL_image.h>
+#include <SDL_ttf.h>
 #include <stdio.h>
 #include <string>
 #include <string.h>
@@ -193,6 +194,8 @@ bool LTexture::loadFromRenderedText( std::string textureText, SDL_Color textColo
 {
 	//Get rid of preexisting texture
 	free();
+
+    TTF_Font *gFont = NULL; // gfont definition was missing
 
 	//Render text surface
 	SDL_Surface* textSurface = TTF_RenderText_Solid( gFont, textureText.c_str(), textColor );

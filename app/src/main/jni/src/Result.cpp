@@ -7,21 +7,25 @@
 
 Result::Result(int a, int b) {
     state = NORMAL;
-    scores.push_back(std::pair(a,b));
+    scores.push_back(std::make_pair(a,b));
 }
 
 Result::Result(state_enum state){
     this->state = state;
 }
 
-state_enum Result::getState() {
+Result::state_enum Result::getState() {
     return state;
 }
 
 void Result::addScores(int a, int b) {
-    scores.push_back(std::pair(a,b));
+    scores.push_back(std::make_pair(a,b));
 }
 
-std::vector <std::pair<int, int>> void Result::getScores() {
+std::vector < std::pair<int, int> > Result::getScores() {
     return scores;
+}
+
+void Result::changeState(state_enum newState) {
+    state = newState;
 }

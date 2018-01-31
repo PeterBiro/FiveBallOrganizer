@@ -21,7 +21,7 @@ private:
     Team team_A;
     Team team_B;
 
-    std::map results <std::string, Result>;
+    std::map <std::string, Result> results;
 
     bool A_ReadyFlag;
     bool B_ReadyFlag;

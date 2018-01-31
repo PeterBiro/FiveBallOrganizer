@@ -5,10 +5,11 @@
 #ifndef FIVEBALLORGANIZER_GUI_H
 #define FIVEBALLORGANIZER_GUI_H
 
-
 class Gui {
+public: Gui();
 
 };
 
 
 #endif //FIVEBALLORGANIZER_GUI_H
+

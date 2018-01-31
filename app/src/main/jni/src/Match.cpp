@@ -4,7 +4,7 @@
 
 #include "Match.h"
 
-Match::Match(Team teamA, Team teamB) : team_A{teamA}, team_B{teamB} {
+Match::Match(Team teamA, Team teamB) : team_A(teamA), team_B(teamB) {
 
     A_ReadyFlag = false;
     B_ReadyFlag = false;
@@ -27,6 +27,6 @@ void Match::addResult(std::string sport, Result::state_enum specialCase) {
     if (results.count(sport) == 0) {
         results[sport] = Result(specialCase);
     } else {
-        results[sport].changeState = specialCase;
+        results[sport].changeState(specialCase);
     }
 }

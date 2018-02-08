@@ -5,8 +5,9 @@
 #include "KW_renderdriver_sdl2.h"
 
 int main(int argc, char ** argv) {
-
+    int logIndex = 0;
     /* initialize window and renderer */
+
     KW_RenderDriver * driver;
     SDL_Window * window;
     SDL_Renderer * renderer;
@@ -22,7 +23,7 @@ int main(int argc, char ** argv) {
     driver = KW_CreateSDL2RenderDriver(renderer, window);
     /* load tileset */
 
-    set = KW_LoadSurface(driver, "tileset.png");
+    set = KW_LoadSurface(driver, "KiWi-example/tileset.png");
 
     /* initialize gui */
     gui = KW_Init(driver, set);

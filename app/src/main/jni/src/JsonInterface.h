@@ -17,7 +17,7 @@ public:
     JsonInterface();
     ~JsonInterface()= default;
 
-    std::vector <Team>* LoadTeams(std::string path);
+    std::vector <Team*> * LoadTeams(std::string path);
 
 private:
 

@@ -16,4 +16,6 @@ LOCAL_SHARED_LIBRARIES := SDL2 SDL2_image SDL2_ttf KiWi_static
 
 LOCAL_LDLIBS := -lGLESv1_CM -lGLESv2 -llog
 
+LOCAL_CPPFLAGS += -std=c++11
+
 include $(BUILD_SHARED_LIBRARY)

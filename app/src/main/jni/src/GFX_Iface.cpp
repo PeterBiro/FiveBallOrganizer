@@ -4,6 +4,7 @@
 
 #include "GFX_Iface.h"
 
+
 SDL_Window * GFX_Iface::window = NULL;
 SDL_Renderer * GFX_Iface::renderer = NULL;
 KW_RenderDriver * GFX_Iface::driver = NULL;
@@ -19,6 +20,7 @@ void GFX_Iface::init(){
 
     SDL_Log("myLog: gfx - init started");
 
+    
     const int DISPLAY_HEIGHT = 1440;
     const int DISPLAY_WIDTH = 2048;
 
@@ -48,7 +50,21 @@ void GFX_Iface::init(){
     SDL_Log("myLog: Left frame created");
 
     /*just for testing*/
-    /* Create the title, label and edibox widgets */
+    /* Create the title, label and editbox widgets */
+
+    JsonInterface jsonParser;
+    std::vector <Team*> * teams = jsonParser.LoadTeams("json/sampleteams.json");
+    if (teams->size() == 15) SDL_Log("Marha nagy 15");
+    for (int i = 0; i < teams->size(); ++i ) {
+        SDL_Log("ciklus egy");
+        KW_Rect teamRect = {.x = 80, .y = 80 + 30*i, .w = 500, .h = 30};
+        const char * teamname = (*teams)[i]->getName().c_str();
+        SDL_Log("Here comes teamname");
+        SDL_Log("%s",teamname);
+        //KW_CreateLabel(gui, leftFrame, teamname , &teamRect);
+        SDL_Log("** **");
+    }
+
     KW_Rect titlerect = { .x = 0, .y = 10, .w = 300, .h = 30 };
     KW_Rect labelrect = { .y = 100, .w = 60, .h = 30 };
     KW_Rect editboxrect = { .y = 100, .w = 100, .h = 40 };
@@ -98,7 +114,7 @@ void GFX_Iface::OKClicked(KW_Widget * widget, int b) {
 void GFX_Iface::RenderLoop() {
     SDL_Log("myLog: Render loop is running");
     SDL_RenderClear(renderer);
-    KW_ProcessEvents(gui); //Segfault gui seems to be NULL
+    KW_ProcessEvents(gui);
     KW_Paint(gui);
     SDL_RenderPresent(renderer);
     SDL_Delay(1);

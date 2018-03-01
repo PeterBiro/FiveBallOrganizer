@@ -11,6 +11,8 @@
 #include "KW_label.h"
 #include "KW_button.h"
 #include "KW_renderdriver_sdl2.h"
+#include "JsonInterface.h"
+
 
 
 class GFX_Iface {
@@ -22,11 +24,16 @@ public:
     static void init();
     static KW_bool quit;
     static void OKClicked(KW_Widget * widget, int b);
+
+private:
     static SDL_Window * window;
     static SDL_Renderer * renderer;
     static KW_RenderDriver * driver;
     static KW_Surface * set;
     static KW_GUI * gui;
+
+    static std::vector <KW_Widget *> leftWidgets;
+    static std::vector <KW_Widget *> rightWidgets;
 };
 
 

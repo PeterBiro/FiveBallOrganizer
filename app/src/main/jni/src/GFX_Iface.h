@@ -24,6 +24,7 @@ public:
     static void init();
     static KW_bool quit;
     static void OKClicked(KW_Widget * widget, int b);
+    static void addMatchClicked(KW_Widget * widget, int b);
 
 private:
     static SDL_Window * window;

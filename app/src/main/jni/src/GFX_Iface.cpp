@@ -20,7 +20,7 @@ void GFX_Iface::init(){
 
     SDL_Log("myLog: gfx - init started");
 
-    
+
     const int DISPLAY_HEIGHT = 1440;
     const int DISPLAY_WIDTH = 2048;
 
@@ -49,31 +49,13 @@ void GFX_Iface::init(){
 
     SDL_Log("myLog: Left frame created");
 
-    /*just for testing*/
-    /* Create the title, label and editbox widgets */
+    /* Create add new match button */
 
-    JsonInterface jsonParser;
-    std::vector <Team*> * teams = jsonParser.LoadTeams("json/sampleteams.json");
-    if (teams->size() == 15) SDL_Log("Marha nagy 15");
-    for (int i = 0; i < teams->size(); ++i ) {
-        SDL_Log("ciklus egy");
-        KW_Rect teamRect = {.x = 80, .y = 80 + 30*i, .w = 500, .h = 30};
-        const char * teamname = (*teams)[i]->getName().c_str();
-        SDL_Log("Here comes teamname");
-        SDL_Log("%s",teamname);
-        //KW_CreateLabel(gui, leftFrame, teamname , &teamRect);
-        SDL_Log("** **");
-    }
+    KW_Rect addMatchRect = {.x = 120, .y = 120, .w = 150, .h = 150};
+    KW_Widget * addMatchFrame = KW_CreateButtonAndLabel(gui, leftFrame, "Add new match", &addMatchRect);
+    KW_AddWidgetMouseDownHandler(addMatchFrame, addMatchClicked);
+    SDL_Log("myLog: add new match button event handler added");
 
-    KW_Rect titlerect = { .x = 0, .y = 10, .w = 300, .h = 30 };
-    KW_Rect labelrect = { .y = 100, .w = 60, .h = 30 };
-    KW_Rect editboxrect = { .y = 100, .w = 100, .h = 40 };
-    KW_Rect * rects[] = { &labelrect, &editboxrect };
-    unsigned weights[] = { 1, 4 };
-    KW_RectFillParentHorizontally(&leftFrameRect, rects, weights, 2, 10, KW_RECT_ALIGN_MIDDLE);
-    KW_CreateLabel(gui, leftFrame, "Editbox example", &titlerect);
-    KW_CreateLabel(gui, leftFrame, "Label", &labelrect);
-    KW_CreateEditbox(gui, leftFrame, "Edit me!", &editboxrect);
 
     SDL_Log("myLog: All labels created");
 
@@ -87,13 +69,13 @@ void GFX_Iface::init(){
     KW_Rect buttonrect = { .x = 250, .y = 170, .w = 40, .h = 40 };
     KW_Widget * okbutton = KW_CreateButtonAndLabel(gui, rightFrame, "OK", &buttonrect);
 
-    SDL_Log("myLog: OK button created created");
+    SDL_Log("myLog: OK button created");
 
     KW_bool quit = KW_FALSE;
 
     KW_AddWidgetMouseDownHandler(okbutton, OKClicked);
+    SDL_Log("myLog: OKClicked event handler added");
 
-    SDL_Log("myLog: Event handler added");
 }
 
 GFX_Iface::~GFX_Iface() {
@@ -107,16 +89,73 @@ GFX_Iface::~GFX_Iface() {
 /* Callback for when the OK button is clicked */
 
 void GFX_Iface::OKClicked(KW_Widget * widget, int b) {
+    SDL_Log("myLog: OK button clicked - quiting");
     quit = KW_TRUE;
+}
 
+void GFX_Iface::addMatchClicked(KW_Widget * widget, int b) {
+    //Show new frame
+    KW_Rect centerRect = {.x = 5, .y = 5, .w = 2038, .h = 1430};
+    KW_Widget * addNewMatchFrame = KW_CreateFrame(gui, NULL, &centerRect);
+
+    //Show teams
+    JsonInterface myParser;
+    auto teams = myParser.LoadTeams("json/sampleteams.json");
+
+    for (int i = 0; i < teams->size(); ++i ) {
+        KW_Rect teamRect = {.x = 80, .y = 80 + 30*i, .w = 500, .h = 30};
+        const char * teamname = (*teams)[i]->getName().c_str();
+        KW_Widget * teamWidget = KW_CreateButtonAndLabel(gui, addNewMatchFrame,teamname, &teamRect);
+    }
+
+    //TODO First team selectable
+    KW_AddWidgetMouseDownHandler()
+
+    //TODO Show other teams with same category
+    //TODO Second team selectable
+    //TODO If selected (OK clicked) create
+    //TODO Create match
+    //TODO Close frame/widget
+    //TODO Show match on leftFrame
+    //TODO Move addNewMatch button
+
+    SDL_Log("myLog: Add match button clicked, event handler is running.");
 }
 
 void GFX_Iface::RenderLoop() {
-    SDL_Log("myLog: Render loop is running");
+    //SDL_Log("myLog: Render loop is running");
     SDL_RenderClear(renderer);
     KW_ProcessEvents(gui);
     KW_Paint(gui);
     SDL_RenderPresent(renderer);
-    SDL_Delay(1);
+    SDL_Delay(1000); //for checking if new fram is present
 }
 
+/*
+ * just for testing
+ * Create the title, label and editbox widgets
+ * it was in Init()
+ * */
+
+/*JsonInterface jsonParser;
+std::vector <Team*> * teams = jsonParser.LoadTeams("json/sampleteams.json");
+if (teams->size() == 15) SDL_Log("Marha nagy 15");
+for (int i = 0; i < teams->size(); ++i ) {
+    SDL_Log("ciklus egy");
+    KW_Rect teamRect = {.x = 80, .y = 80 + 30*i, .w = 500, .h = 30};
+    const char * teamname = (*teams)[i]->getName().c_str();
+    SDL_Log("Here comes teamname");
+    SDL_Log("%s",teamname);
+    KW_CreateLabel(gui, leftFrame, teamname , &teamRect);
+    SDL_Log("** **");
+}
+
+KW_Rect titlerect = { .x = 0, .y = 10, .w = 300, .h = 30 };
+KW_Rect labelrect = { .y = 100, .w = 60, .h = 30 };
+KW_Rect editboxrect = { .y = 100, .w = 100, .h = 40 };
+KW_Rect * rects[] = { &labelrect, &editboxrect };
+unsigned weights[] = { 1, 4 };
+KW_RectFillParentHorizontally(&leftFrameRect, rects, weights, 2, 10, KW_RECT_ALIGN_MIDDLE);
+KW_CreateLabel(gui, leftFrame, "Editbox example", &titlerect);
+KW_CreateLabel(gui, leftFrame, "Label", &labelrect);
+KW_CreateEditbox(gui, leftFrame, "Edit me!", &editboxrect);*/

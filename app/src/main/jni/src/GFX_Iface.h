@@ -21,7 +21,7 @@ public:
     ~GFX_Iface();
 
     static void RenderLoop();
-    static void init();
+    static void init(Globals * globals_ptr);
     static KW_bool quit;
     static void OKClicked(KW_Widget * widget, int b);
     static void addMatchClicked(KW_Widget * widget, int b);
@@ -36,6 +36,8 @@ private:
 
     static std::vector <KW_Widget *> leftWidgets;
     static std::vector <KW_Widget *> rightWidgets;
+
+    static Globals * globals;
 };
 
 

@@ -8,14 +8,14 @@
 #include "JsonInterface.h"
 
 
-JsonInterface::JsonInterface() {
+JsonInterface::JsonInterface(Globals * globals_ptr) {
     SDL_Log("JSON: JsonInterface Constructor is running.\n" );
+    globals = globals_ptr;
 }
 
-std::vector <Team*> * JsonInterface::LoadTeams(std::string path) {
+void JsonInterface::LoadTeams(std::string path) {
     SDL_Log("JSON: JsonInterface LoadTeams is running.\n" );
 
-    std::vector<Team*> * teams = new std::vector<Team*>() ;
     SDL_RWops *io = SDL_RWFromFile(path.c_str(), "r");
     if (io != NULL) {
         size_t fileSize = SDL_RWseek(io, 0, RW_SEEK_END);
@@ -34,12 +34,10 @@ std::vector <Team*> * JsonInterface::LoadTeams(std::string path) {
             auto member = itr->GetObject();
             Team * newTeam = new Team(member["name"].GetString(), member["category"].GetString());
             SDL_Log("New team created: %s\n", newTeam->getName().c_str());
-            teams->push_back(newTeam);
+            globals->addTeam(newTeam);
         }
     } else {
         //TODO FileOpenError
         SDL_Log("JSON: Can't open %s.\n", path.c_str() );
     }
-
-    return teams;
 }

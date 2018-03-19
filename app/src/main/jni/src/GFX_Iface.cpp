@@ -2,6 +2,7 @@
 // Created by birop on 19/02/2018.
 //
 
+#include <src/KW_widget_internal.h>
 #include "GFX_Iface.h"
 
 
@@ -93,6 +94,31 @@ void GFX_Iface::OKClicked(KW_Widget * widget, int b) {
     quit = KW_TRUE;
 }
 
+void GFX_Iface::firstTeamSelectedForMatch(KW_Widget * widget, int b) {
+    SDL_Log("myLog: First team selected (at least clicked ;) )");
+    auto selectedTeamName = KW_GetWidgetUserData(widget);
+    SDL_Log("myLog: userData of widget: %s",(char*)selectedTeamName);
+
+    KW_DestroyWidget(widget->parent, 1);
+
+    //Show new frame
+    KW_Rect centerRect = {.x = 5, .y = 5, .w = 2038, .h = 1430};
+    KW_Widget * addNewMatchFrame = KW_CreateFrame(gui, NULL, &centerRect);
+
+    //Show teams
+    JsonInterface myParser;
+    auto teams = myParser.LoadTeams("json/sampleteams.json");
+
+    for (int i = 0; i < teams->size(); ++i ) {
+        KW_Rect teamRect = {.x = 80, .y = 80 + 30*i, .w = 500, .h = 30};
+        const char * teamname = (*teams)[i]->getName().c_str();
+        KW_Widget * teamWidget = KW_CreateButtonAndLabel(gui, addNewMatchFrame, teamname, &teamRect);
+        KW_SetWidgetUserData(teamWidget, (void *) teamname);
+        KW_AddWidgetMouseDownHandler(teamWidget, firstTeamSelectedForMatch);
+    }
+
+}
+
 void GFX_Iface::addMatchClicked(KW_Widget * widget, int b) {
     //Show new frame
     KW_Rect centerRect = {.x = 5, .y = 5, .w = 2038, .h = 1430};
@@ -105,11 +131,12 @@ void GFX_Iface::addMatchClicked(KW_Widget * widget, int b) {
     for (int i = 0; i < teams->size(); ++i ) {
         KW_Rect teamRect = {.x = 80, .y = 80 + 30*i, .w = 500, .h = 30};
         const char * teamname = (*teams)[i]->getName().c_str();
-        KW_Widget * teamWidget = KW_CreateButtonAndLabel(gui, addNewMatchFrame,teamname, &teamRect);
+        KW_Widget * teamWidget = KW_CreateButtonAndLabel(gui, addNewMatchFrame, teamname, &teamRect);
+        KW_SetWidgetUserData(teamWidget, (void *) teamname);
+        KW_AddWidgetMouseDownHandler(teamWidget, firstTeamSelectedForMatch);
     }
 
     //TODO First team selectable
-    KW_AddWidgetMouseDownHandler()
 
     //TODO Show other teams with same category
     //TODO Second team selectable
@@ -128,7 +155,7 @@ void GFX_Iface::RenderLoop() {
     KW_ProcessEvents(gui);
     KW_Paint(gui);
     SDL_RenderPresent(renderer);
-    SDL_Delay(1000); //for checking if new fram is present
+    SDL_Delay(1000); //for checking if new frame is present
 }
 
 /*

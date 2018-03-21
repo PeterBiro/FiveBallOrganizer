@@ -11,15 +11,15 @@
 
 class Match {
 public:
-    Match(Team teamA, Team teamB);
+    Match(Team * teamA, Team * teamB);
     ~Match()= default;
 
     void addResult(std::string sport, int score_A, int score_B);
     void addResult(std::string sport, Result::state_enum specialCase);
 
 private:
-    Team team_A;
-    Team team_B;
+    Team * team_A;
+    Team * team_B;
 
     std::map <std::string, Result> results;
 

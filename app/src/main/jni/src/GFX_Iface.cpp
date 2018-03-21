@@ -13,6 +13,7 @@ KW_Surface * GFX_Iface::set = NULL;
 KW_GUI * GFX_Iface::gui = NULL;
 KW_bool GFX_Iface::quit = KW_FALSE;
 Globals * GFX_Iface::globals = nullptr;
+Team * GFX_Iface::selectedTeam = nullptr;
 
 GFX_Iface::GFX_Iface() {
 }
@@ -99,6 +100,7 @@ void GFX_Iface::firstTeamSelectedForMatch(KW_Widget * widget, int b) {
     SDL_Log("myLog: First team selected (at least clicked ;) )");
     auto selectedTeamName = KW_GetWidgetUserData(widget);
     SDL_Log("myLog: userData of widget: %s",(char*)selectedTeamName);
+    selectedTeam = globals->getTeamByTeamName((char*)selectedTeamName);
 
     KW_DestroyWidget(widget->parent, 1);
 
@@ -109,13 +111,26 @@ void GFX_Iface::firstTeamSelectedForMatch(KW_Widget * widget, int b) {
     //Show teams
 
     for (int i = 0; i < globals->getAllTeams()->size(); ++i ) {
-        KW_Rect teamRect = {.x = 80, .y = 80 + 30*i, .w = 500, .h = 30};
-        const char * teamname = (*globals->getAllTeams())[i]->getName().c_str();
-        KW_Widget * teamWidget = KW_CreateButtonAndLabel(gui, addNewMatchFrame, teamname, &teamRect);
-        KW_SetWidgetUserData(teamWidget, (void *) teamname);
-        KW_AddWidgetMouseDownHandler(teamWidget, firstTeamSelectedForMatch);
+        if (selectedTeam->getCategory() == (*globals->getAllTeams())[i]->getCategory()
+                && selectedTeam->getName() != (*globals->getAllTeams())[i]->getCategory() ) {
+
+            KW_Rect teamRect = {.x = 80, .y = 80 + 30*i, .w = 500, .h = 30};
+            const char * teamname = (*globals->getAllTeams())[i]->getName().c_str();
+            KW_Widget * teamWidget = KW_CreateButtonAndLabel(gui, addNewMatchFrame, teamname, &teamRect);
+            KW_SetWidgetUserData(teamWidget, (void *) teamname);
+            KW_AddWidgetMouseDownHandler(teamWidget, secondTeamSelectedForMatch);
+        }
     }
 
+}
+
+void GFX_Iface::secondTeamSelectedForMatch(KW_Widget * widget, int b) {
+    SDL_Log("myLog: First team selected (at least clicked ;) )");
+    auto selectedTeamName = KW_GetWidgetUserData(widget);
+    SDL_Log("myLog: userData of widget: %s",(char*)selectedTeamName);
+    auto secondTeam = globals->getTeamByTeamName((char*)selectedTeamName);
+
+    Match * newMatch = new Match(selectedTeam, secondTeam);
 }
 
 void GFX_Iface::addMatchClicked(KW_Widget * widget, int b) {
@@ -124,7 +139,6 @@ void GFX_Iface::addMatchClicked(KW_Widget * widget, int b) {
     KW_Widget * addNewMatchFrame = KW_CreateFrame(gui, NULL, &centerRect);
 
     //Show teams
-
 
     for (int i = 0; i < globals->getAllTeams()->size(); ++i ) {
         KW_Rect teamRect = {.x = 80, .y = 80 + 30*i, .w = 500, .h = 30};

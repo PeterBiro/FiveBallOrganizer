@@ -16,6 +16,7 @@ public:
 
     void addTeam(Team * team);
     std::vector <Team*> * getAllTeams();
+    Team * getTeamByTeamName(std::string teamName);
 
 private:
    std::vector <Team*>teams ;

@@ -12,6 +12,7 @@
 #include "KW_button.h"
 #include "KW_renderdriver_sdl2.h"
 #include "JsonInterface.h"
+#include "Match.h"
 
 
 
@@ -26,6 +27,7 @@ public:
     static void OKClicked(KW_Widget * widget, int b);
     static void addMatchClicked(KW_Widget * widget, int b);
     static void firstTeamSelectedForMatch(KW_Widget * widget, int b);
+    static void secondTeamSelectedForMatch(KW_Widget * widget, int b);
 
 private:
     static SDL_Window * window;
@@ -38,6 +40,7 @@ private:
     static std::vector <KW_Widget *> rightWidgets;
 
     static Globals * globals;
+    static Team * selectedTeam;
 };
 
 

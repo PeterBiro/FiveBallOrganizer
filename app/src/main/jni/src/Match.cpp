@@ -4,7 +4,7 @@
 
 #include "Match.h"
 
-Match::Match(Team teamA, Team teamB) : team_A(teamA), team_B(teamB) {
+Match::Match(Team * teamA, Team * teamB) : team_A(teamA), team_B(teamB) {
 
     A_ReadyFlag = false;
     B_ReadyFlag = false;

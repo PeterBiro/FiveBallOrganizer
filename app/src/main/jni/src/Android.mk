@@ -17,6 +17,7 @@ LOCAL_SRC_FILES :=  main.cpp \
                     53_extensions.cpp \
                     GFX_Iface.h GFX_Iface.cpp \
                     Globals.h Globals.cpp \
+                    MainFram.h MainFrame.cpp
 
 
 LOCAL_SHARED_LIBRARIES := SDL2 SDL2_image SDL2_ttf KiWi_static

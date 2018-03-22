@@ -1,17 +1,9 @@
-#include "GFX_Iface.h"
-
+#include "MainFrame.h"
 
 int main(int argc, char ** argv) {
-    Globals globals;
 
-    SDL_Log("myLog: Main is running");
-    GFX_Iface::init(&globals);
+    MainFrame mainFrame;
+    mainFrame.run();
 
-    JsonInterface myParser(&globals);
-    myParser.LoadTeams("json/sampleteams.json");
-
-    while (!SDL_QuitRequested() && !GFX_Iface::quit) {
-        GFX_Iface::RenderLoop();
-    }
     return 0;
 }

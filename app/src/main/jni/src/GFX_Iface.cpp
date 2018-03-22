@@ -112,7 +112,7 @@ void GFX_Iface::firstTeamSelectedForMatch(KW_Widget * widget, int b) {
 
     for (int i = 0; i < globals->getAllTeams()->size(); ++i ) {
         if (selectedTeam->getCategory() == (*globals->getAllTeams())[i]->getCategory()
-                && selectedTeam->getName() != (*globals->getAllTeams())[i]->getCategory() ) {
+                && selectedTeam->getName() != (*globals->getAllTeams())[i]->getName() ) {
 
             KW_Rect teamRect = {.x = 80, .y = 80 + 30*i, .w = 500, .h = 30};
             const char * teamname = (*globals->getAllTeams())[i]->getName().c_str();

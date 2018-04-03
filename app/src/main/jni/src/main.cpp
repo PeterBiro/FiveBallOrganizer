@@ -3,7 +3,7 @@
 int main(int argc, char ** argv) {
 
     MainFrame mainFrame;
-    mainFrame.run();
+    mainFrame.start();
 
     return 0;
 }

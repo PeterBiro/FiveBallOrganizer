@@ -5,13 +5,13 @@
 #ifndef FIVEBALLORGANIZER_MAINFRAME_H
 #define FIVEBALLORGANIZER_MAINFRAME_H
 
-#include "GFX_Iface.h" // only for short time, it will propagate down to future controller
+#include "SportEvent.h"
 
 class MainFrame {
 public:
     MainFrame()= default;
     ~MainFrame()= default;
-    void run();
+    void start();
 
 };
 

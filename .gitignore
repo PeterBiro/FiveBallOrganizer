@@ -1,3 +1,8 @@
+#Symbolic link libraries
+app/src/main/jni/SDL2
+app/src/main/jni/SDL2_image
+app/src/main/jni/SDL2_ttf
+app/src/main/jni/KiWi
 
 # Created by https://www.gitignore.io/api/c++,linux,windows,androidstudio
 

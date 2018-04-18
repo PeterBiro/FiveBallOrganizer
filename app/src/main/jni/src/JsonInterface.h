@@ -10,16 +10,18 @@
 #include "../rapidjson/document.h"
 #include "Team.h"
 #include "SDL.h"
+#include "Globals.h"
 
 
 class JsonInterface {
 public:
-    JsonInterface();
+    JsonInterface(Globals * globals);
     ~JsonInterface()= default;
 
-    std::vector <Team>* LoadTeams(std::string path);
+    void LoadTeams(std::string path);
 
 private:
+    Globals * globals = nullptr;
 
 };
 

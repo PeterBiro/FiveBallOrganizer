@@ -4,11 +4,7 @@
 #include "Team.h"
 #include "SDL.h"
 
-
-Team::Team(std::string nm, std::string cat) {
-    SDL_Log("first constructor is called\n");
-    Team(nm, cat, "");
-}
+Team::Team(std::string nm, std::string cat) : Team(nm, cat, ""){}
 
 Team::Team(std::string nm, std::string cat, std::string mail) {
     SDL_Log("second constructor is called\n");

@@ -1,5 +1,5 @@
 
-# Created by https://www.gitignore.io/api/c++,windows,androidstudio
+# Created by https://www.gitignore.io/api/c++,linux,windows,androidstudio
 
 ### AndroidStudio ###
 # Covers files to be ignored for android development using Android Studio.
@@ -63,7 +63,9 @@ obj/
 /out/
 
 # User-specific configurations
+.idea/caches/
 .idea/libraries/
+.idea/shelf/
 .idea/workspace.xml
 .idea/tasks.xml
 .idea/.name
@@ -94,6 +96,8 @@ Thumbs.db
 # Legacy Eclipse project files
 .classpath
 .project
+.cproject
+.settings/
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
@@ -160,6 +164,20 @@ fabric.properties
 *.out
 *.app
 
+### Linux ###
+
+# temporary files which can be created if a process still has a handle open of a deleted file
+.fuse_hidden*
+
+# KDE directory preferences
+.directory
+
+# Linux trash folder which might appear on any partition or disk
+.Trash-*
+
+# .nfs files are created when an open file is removed but is still being accessed
+.nfs*
+
 ### Windows ###
 # Windows thumbnail cache files
 ehthumbs_vista.db
@@ -180,4 +198,4 @@ $RECYCLE.BIN/
 *.lnk
 
 
-# End of https://www.gitignore.io/api/c++,windows,androidstudio
+# End of https://www.gitignore.io/api/c++,linux,windows,androidstudio
